@@ -1,0 +1,73 @@
+version: "2.0"
+
+intents:
+  - greet
+  - get_walk_duration
+  - inform_origin
+  - inform_destination
+  - inform_origin+inform_destination
+  - goodbye
+  - bot_challenge
+
+responses:
+  utter_greet:
+  - text: "Hey!"
+
+  utter_intro:
+  - text: "How can I help you? (Right now, I can just tell you how long your walk from a capital to another will take :) Pretty useful huh)"
+
+  utter_ask_origin_and_destination:
+  - text: "Where does your journey start and where does it end?"
+
+  utter_ask_origin_address:
+  - text: "Where does your journey start?"
+  - text: "From where are you going?"
+  - text: "From where?"
+
+  utter_ask_destination_address:
+  - text: "Where are you going?"
+  - text: "To where?"
+
+  utter_goodbye:
+  - text: "Bye :)"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+actions:
+- action_tell_walk_duration
+- utter_greet
+
+entities:
+  - address:
+      roles:
+        - origin
+        - destination
+
+forms:
+  address_form:
+    required_slots:
+      origin_address:
+        - type: from_entity
+          entity: address
+          role: origin
+        - type: from_entity
+          entity: address
+      destination_address:
+        - type: from_entity
+          entity: address
+          role: destination
+        - type: from_entity
+          entity: address
+
+slots:
+  origin_address:
+    type: text
+    influence_conversation: true
+  destination_address:
+    type: text
+    influence_conversation: true
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

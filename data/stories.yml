@@ -1,0 +1,48 @@
+version: "2.0"
+
+stories:
+- story: Origin then destination
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_intro
+  - intent: get_walk_duration
+  - action: address_form
+  - active_loop: address_form
+  - slot_was_set:
+    - origin_address: Berlin
+  - slot_was_set:
+    - destination_address: Tokyo
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_tell_walk_duration
+
+
+- story: Start again
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_intro
+  - intent: get_walk_duration
+  - action: address_form
+  - active_loop: address_form
+  - slot_was_set:
+    - origin_address: Berlin
+  - slot_was_set:
+    - destination_address: Tokyo
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_tell_walk_duration
+  - intent: get_walk_duration
+  - action: address_form
+  - active_loop: address_form
+  - intent: inform_origin
+  - slot_was_set:
+    - origin_address: Madrid
+  - slot_was_set:
+    - destination_address: Paris
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
